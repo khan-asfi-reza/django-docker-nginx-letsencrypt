@@ -1,7 +1,7 @@
 FROM certbot/certbot:v1.27.0
 
-COPY certify-init.sh /opt/
-RUN chmod +x /opt/certify-init.sh
+COPY certify.sh /opt/
+RUN chmod +x /opt/certify.sh
 
 ENTRYPOINT []
 CMD ["certbot", "renew"]

@@ -92,10 +92,6 @@ services:
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    environment:
-      POSTGRES_DB: blogs_api
-      POSTGRES_USER: django
-      POSTGRES_PASSWORD: django
     expose:
       - 5432
     env_file:
@@ -137,6 +133,8 @@ services:
 
 
 volumes:
+  postgres_data: { }
+  elasticsearch-data: { }
   certbot-web:
   proxy-dhparams:
   certbot-certs:
