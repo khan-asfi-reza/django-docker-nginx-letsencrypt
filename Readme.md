@@ -1,6 +1,9 @@
 # django-docker-nginx-letsencrypt
 
- - Follow the following steps to setup django api with nginx, certbot, elasticsearch, redis and postgresdb
+Purpose: Create a dockerized django application with nginx and ssl certificate.
+This project covers how to deploy a django application with docker nginx letsencrypt (ssl certificate)
+By following this repo, you will be able to publish your django app in any vm, and you will be able to
+create a http-secured app
 
 #### 💻 Techs used
 
