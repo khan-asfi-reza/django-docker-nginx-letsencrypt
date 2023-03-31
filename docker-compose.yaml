@@ -1,0 +1,129 @@
+version: "3.9"
+
+services:
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+  # Redis Cache
+  # Acts as both cache and message broker for celery
+  redis:
+    restart: unless-stopped
+    image: redis:7.0.5-alpine
+    expose:
+      - 6379
+    env_file:
+      - .dev.env
+  # Postgres Database
+  db:
+    image: postgres:14.0-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: blogs_api
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: django
+    expose:
+      - 5432
+    env_file:
+      - .dev.env
+
+  # Main Django Application
+  app:
+    build:
+      context: .
+    restart: always
+    env_file:
+      - .dev.env
+    command: "pipenv run python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./blogs_api:/blogs_api
+      - ./.dev.env:/.dev.env
+    expose:
+      - 8000
+    links:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+
+  # Celery beat scheduler, sends tasks to queue
+  celery_beat:
+    build:
+      context: .
+    command: "pipenv run celery -A blogs_api beat"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./blogs_api:/blogs_api
+      - ./.dev.env:/.dev.env
+    env_file:
+      - .dev.env
+
+  # Default celery consumer queue | Default, All tasks come to this consumer
+  celery_default:
+    build:
+      context: .
+    command: "pipenv run celery -A blogs_api worker -l info --concurrency 16 --pool threads -n default@%h"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./blogs_api:/blogs_api
+      - ./.dev.env:/.dev.env
+    env_file:
+      - .dev.env
+
+  # Flower to monitor celery
+  flower:
+    image: mher/flower
+    command: 'celery flower --broker=${CELERY_BROKER_URL} flower --port=5555'
+    expose:
+      - 5555
+    ports:
+      - "5555:5555"
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .dev.env
+    volumes:
+      - ./.dev.env:/.dev.env
+
+volumes:
+  postgres_data: { }
+  elasticsearch-data: {}
