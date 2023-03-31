@@ -18,11 +18,10 @@
 - amazon ec2, Google Compute Engine, DigitalOcean Instance, Azure VM
 
 ### Steps
-* 
-> SSH Into your VM
 
-* 
->  Download and install Docker
+* SSH Into your VM
+
+*  Download and install Docker
 
 ( Example for Ubuntu/Debian Based Systems )
 
@@ -70,5 +69,19 @@ apt-get install -y docker-compose-plugin docker-compose
 For other os [visit docker official documentation](https://docs.docker.com/engine/install/)
 
 
-*
-> Setup Github repo 
+* Setup Github repo 
+
+To get our codebase from github repo we need to generate a ssh deploy key
+and put the deploy key public key to Github repo deploy key section
+
+```shell
+ssh-keygen -t ed25519 -C "GitHub Deploy Key"
+```
+
+Cat the public and copy and paste it in the github deploy keys section
+
+Github Repo > Settings > Deploy Keys
+
+```shell
+cat ~/.ssh/id_ed25519.pub
+```
