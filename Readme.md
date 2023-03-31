@@ -85,3 +85,11 @@ Github Repo > Settings > Deploy Keys
 ```shell
 cat ~/.ssh/id_ed25519.pub
 ```
+
+Setting deploy key
+
+<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image1.png">
+
+Put public key 
+
+<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image2.png">
