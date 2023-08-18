@@ -58,7 +58,7 @@ services:
       - .dev.env
 
   # Main Django Application
-  app:
+  blogs_api:
     build:
       context: .
     restart: always

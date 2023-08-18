@@ -9,6 +9,7 @@ RUN pip install pipenv
 COPY Pipfile Pipfile
 COPY Pipfile.lock Pipfile.lock
 
+RUN pipenv install  --system
 RUN pipenv install
 
 COPY ./blogs_api ./blogs_api

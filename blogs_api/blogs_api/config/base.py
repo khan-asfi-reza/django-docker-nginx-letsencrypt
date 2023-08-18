@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     "storages",
-    "django_elasticsearch_dsl",
+    # "django_elasticsearch_dsl",
     "django_filters",
     "django_countries",
     "phonenumber_field",
@@ -60,10 +60,10 @@ DATABASES = {
         default=os.environ["DATABASE_URL"], conn_max_age=600
     )
 }
-
-ELASTICSEARCH_DSL = {
-    "default": {"hosts": os.environ.get("ELASTICSEARCH_HOST", "localhost:9200")},
-}
+#
+# ELASTICSEARCH_DSL = {
+#     "default": {"hosts": os.environ.get("ELASTICSEARCH_HOST", "localhost:9200")},
+# }
 
 CACHES = {
     "default": {
