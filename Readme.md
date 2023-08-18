@@ -133,11 +133,12 @@ ssh-ed25519 AAAAC3NzaD23ZDI1NTE5ABSFGKoH0ASXx2ua/++wZgCUSDGsg6VmPc/ys7vNSDGsd2D6
 
 Setting deploy key
 
-<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image1.png">
+![alt Image](https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image1.png)
 
 Put public key `ssh-ed25519 AAAAC3NzaD23ZDI1NTE5ABSFGKoH0ASXx2ua/++wZgCUSDGsg6VmPc/ys7vNSDGsd2D6 GitHub Deploy Key` In the `Key` section
 
-<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image2.png">
+![alt Image](https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image2.png)
+
 
 ### Pull code from github repo
 
@@ -301,11 +302,13 @@ chmod +x deploy.sh
 
 - Go to “Settings > Secrets > Actions”
 - 
-<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image3.png">
+![alt Image](https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image3.png)
+
 
 Open the Actions tab and set secrets
 
-<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image4.png">
+![alt Image](https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image4.png)
+
 
 Create the following secrets:
 SSH_PRIVATE_KEY: content of the private key file
@@ -318,7 +321,8 @@ WORK_DIR: path to the directory containing the repository ( For this /home/app)
 
 MAIN_BRANCH: name of the main branch (mostly main)
 
-<img src="https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image5.png">
+![alt Image](https://github.com/khan-asfi-reza/django-docker-nginx-letsencrypt/blob/main/images/image5.png)
+
 
 In your repo create
 
